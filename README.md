@@ -26,10 +26,38 @@ Learning statistics transforms raw, chaotic data into clear, actionable decision
 
 **Practical Real-World Example: Choosing a Restaurant (Mean vs. Standard Deviation)**
 
-Imagine you are choosing between two restaurants based on customer rating scores (out of 10) from 5 customers:
-**Restaurant A**: 8, 8, 8, 8, 8
-**Mean ($\bar{x}$):** $8.0$
-**Standard Deviation ($s$):** $0.0$ (Zero variation — perfectly consistent experience every time)
-**Restaurant B:** 2, 10, 2, 10, 16 (Note: scaled rating system where top scores vary)
-**Mean ($\bar{x}$)**: $8.0$
-**Standard Deviation ($s$)**: $6.0$ (High variation — hit-or-miss experience)
+Imagine you are choosing between two restaurants based on customer rating scores (out of 10) from 5 customers:<br>
+**Restaurant A**: 8, 8, 8, 8, 8<br>
+**Mean ($\bar{x}$):** $8.0$<br>
+**Standard Deviation ($s$):** $0.0$ (Zero variation — perfectly consistent experience every time)<br>
+**Restaurant B:** 2, 10, 2, 10, 16 (Note: scaled rating system where top scores vary)<br>
+**Mean ($\bar{x}$)**: $8.0$<br>
+**Standard Deviation ($s$)**: $6.0$ (High variation — hit-or-miss experience)<br>
+
+
+Table dim_warehouse {
+  warehouse_id varchar [pk]
+}
+
+Table dim_sku {
+  sku_id varchar [pk]
+  supplier_id varchar
+}
+
+Table dim_sku_warehouse {
+  sku_id varchar
+  warehouse_id varchar
+}
+
+Table fact_events {
+  sku_id varchar
+  warehouse_id varchar
+  supplier_id varchar
+}
+
+Ref: dim_warehouse.warehouse_id < dim_sku_warehouse.warehouse_id
+Ref: dim_sku.sku_id < dim_sku_warehouse.sku_id
+Ref: dim_warehouse.warehouse_id < fact_events.warehouse_id
+Ref: dim_sku.sku_id < fact_events.sku_id
+
+
