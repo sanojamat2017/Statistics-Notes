@@ -148,6 +148,7 @@ plt.grid(True)
 plt.show()
 
 
+
 Test Loss: 0.2262
 Test Accuracy: 100.0 %
 
