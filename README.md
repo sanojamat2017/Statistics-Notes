@@ -35,3 +35,40 @@ Imagine you are choosing between two restaurants based on customer rating scores
 **Standard Deviation ($s$)**: $6.0$ (High variation — hit-or-miss experience)<br>
 
 
+# Data Warehouse Schema
+
+This diagram represents the relationships between warehouse, SKU,
+and event tables.
+
+```mermaid
+erDiagram
+    DIM_WAREHOUSE ||--o{ DIM_SKU_WAREHOUSE : "warehouse_id"
+    DIM_SKU ||--o{ DIM_SKU_WAREHOUSE : "sku_id"
+
+    DIM_WAREHOUSE ||--o{ FACT_EVENTS : "warehouse_id"
+    DIM_SKU ||--o{ FACT_EVENTS : "sku_id"
+
+    DIM_WAREHOUSE {
+        int warehouse_id PK
+        string warehouse_name
+    }
+
+    DIM_SKU {
+        int sku_id PK
+        int supplier_id FK
+        string sku_name
+    }
+
+    DIM_SKU_WAREHOUSE {
+        int warehouse_id FK
+        int sku_id FK
+    }
+
+    FACT_EVENTS {
+        int warehouse_id FK
+        int sku_id FK
+        int supplier_id FK
+        int event_id PK
+    }
+```
+
