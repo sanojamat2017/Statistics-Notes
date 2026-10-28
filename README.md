@@ -35,29 +35,3 @@ Imagine you are choosing between two restaurants based on customer rating scores
 **Standard Deviation ($s$)**: $6.0$ (High variation — hit-or-miss experience)<br>
 
 
-Table dim_warehouse {
-  warehouse_id varchar [pk]
-}
-
-Table dim_sku {
-  sku_id varchar [pk]
-  supplier_id varchar
-}
-
-Table dim_sku_warehouse {
-  sku_id varchar
-  warehouse_id varchar
-}
-
-Table fact_events {
-  sku_id varchar
-  warehouse_id varchar
-  supplier_id varchar
-}
-
-Ref: dim_warehouse.warehouse_id < dim_sku_warehouse.warehouse_id
-Ref: dim_sku.sku_id < dim_sku_warehouse.sku_id
-Ref: dim_warehouse.warehouse_id < fact_events.warehouse_id
-Ref: dim_sku.sku_id < fact_events.sku_id
-
-
